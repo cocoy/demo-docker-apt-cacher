@@ -9,14 +9,14 @@ At the end of the demo, we will have a Vagrant instance, with Docker inside and 
 
    0.  Using VirtualBox and  Vagrant, it is assume we have ansible installed, clone this repository and run the following commands:
 
-
+        ```
         $ cd ~/
         $ git clone https://github.com/cocoy/demo-docker-apt-cacher.git  tower-base
         $ cd ~/tower-base
         $ ansible-galaxy  install -r roles/requirements.yml -c 
         $ vagrant up
         $ vagrant provision
-
+	```
         
 
    1.  Setting up the Docker Host,  the playbook setup_docker_host.yml will target the machines defned at inventories/dev/host inventory file.
