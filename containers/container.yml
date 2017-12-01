@@ -1,0 +1,21 @@
+version: "2"
+settings:
+  conductor:
+    base: ubuntu:xenial
+  project_name: apt-cacher-ng 
+
+services:
+  apt-cacher:
+    from: 'ubuntu:xenial'
+    ports:
+      - "3142:3142" 
+    entrypoint: ["/sbin//tini", "--"]
+    command: ["/usr/sbin/apt-cacher-ng", "SocketPath=/run/apt-cacher-ng/socket",  "-c", "/etc/apt-cacher-ng", "ForeGround=1" ]
+    roles:
+      - {role: realloc.tini,  tini_validate_certs: no } 
+      - {role: elnappoo.apt-cacher-ng, apt_cacher_ng_port: 3142, apt_cacher_ng_cache_dir: /var/cache/apt-cacher-ng, apt_cacher_ng_setup_ufw: False}
+    volumes: 
+      - "apt_cacher_vol:/var/cache/apt-cacher-ng"
+volumes:
+  apt_cacher_vol:
+      external: true

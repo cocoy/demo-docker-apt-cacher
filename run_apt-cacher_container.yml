@@ -1,0 +1,37 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  become_method: sudo
+  
+  tasks:  
+    - name: Clone tower-base into configured directory.
+      git:
+        repo: https://github.com/cocoy/demo-docker-apt-cacher.git
+        dest: "/home/ubuntu/tower-base"
+        force: yes
+
+    - name: Install ansible-container[docker]
+      pip: name=ansible-container[docker]==0.9.2
+    
+   
+    - name: Run ansible_galaxy install
+      command: "ansible-galaxy -r install requirements.yml"
+      args:
+        chdir: "/home/ubuntu/tower-base/containers"
+
+    - name: Run ansible-container playbook
+      command: "ansible-container destroy"
+      args:
+        chdir: "/home/ubuntu/tower-base/containers"
+      ignore_errors: yes 
+
+    - name: Run ansible-container playbook
+      command: "ansible-container build --no-container-cache"
+      args:
+        chdir: "/home/ubuntu/tower-base/containers"
+
+    - name: Run ansible-container playbook
+      command: "ansible-container run"
+      args:
+        chdir: "/home/ubuntu/tower-base/containers"

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+    
+  tasks:
+    ## this playbooks create volumes to be used for apt-cacher-ng, apt_cacher_vol can be a variable, s
+    ## so it can be shared with multiple docker instance.
+    - name: Create a volume
+      docker_volume:
+         name: apt_cacher_vol

@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+
+  vars:
+    apt_proxy: "{{ site_url }}"
+
+  roles:
+    - { role: juju4.ansible-apt-cacher-ng-client }

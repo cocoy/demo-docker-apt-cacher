@@ -1,0 +1,12 @@
+---
+- hosts: localhost 
+  remote_user: ubuntu
+  become: true
+
+  vars_files:
+     - "group_vars/all/main.yml"
+
+  tasks:
+    - debug: 
+        var: group_variable_one 
+        verbosity: 2

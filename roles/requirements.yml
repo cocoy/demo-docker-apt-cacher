@@ -1,0 +1,8 @@
+---
+- src: geerlingguy.git
+- src: geerlingguy.docker
+- src: geerlingguy.pip
+- src: geerlingguy.ansible
+- src: rfhayashi.ansible-container
+- src: juju4.ansible-apt-cacher-ng-client
+

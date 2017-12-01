@@ -1,0 +1,28 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  gather_facts: no
+    
+  tasks:
+     - name: install python 
+       raw: apt install python python-apt
+     #- name: 'install python2'
+     #  apt:
+     #    name: python
+     #    state: present
+
+- hosts: all
+  remote_user: ubuntu
+  become: true
+  become_method: sudo
+
+  vars:
+     pip_install_packages:
+      - name: docker-py
+
+  roles:
+    - { role: geerlingguy.docker }
+    - { role: geerlingguy.pip}
+    - { role: geerlingguy.ansible }
+    - { role: rfhayashi.ansible-container }
