@@ -62,6 +62,9 @@ At the end of the demo, we will have a Vagrant instance, with Docker inside and 
 Use for the documentation:
 https://galaxy.ansible.com/juju4/ansible-apt-cacher-ng-client/
 
+Bug in Ansible Module Create:
+https://github.com/ansible/ansible/issues/30239
+
 ## Author Information
 
 Auther info goes here.

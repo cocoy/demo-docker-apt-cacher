@@ -39,10 +39,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
        ansible.become= true
        ansible.verbose = "vv"
   end
-  config.vm.provision :ansible do |ansible|
-       ansible.playbook = "setup_docker_volumes.yml"
-       ansible.become= true
-       ansible.verbose = "vv"
-  end
+  #config.vm.provision :ansible do |ansible|
+  #     ansible.playbook = "setup_docker_volumes.yml"
+  #     ansible.become= true
+  #     ansible.verbose = "vv"
+  #end
 end
 
