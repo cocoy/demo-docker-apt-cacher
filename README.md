@@ -11,33 +11,36 @@ At the end of the demo, we will have a Vagrant instance, with Docker inside and 
 
 	```
         $ cd ~/
-	$ git clone https://github.com/cocoy/demo-docker-apt-cacher.git  tower-base
+        $ git clone https://github.com/cocoy/demo-docker-apt-cacher.git  tower-base
         $ cd ~/tower-base
+        $ sudo apt-get install ansible -y 
         $ ansible-galaxy  install -r roles/requirements.yml -c 
+
         ```
 
    1.  Setting up the Docker Host,  the playbook setup_docker_host.yml will target the machines defned at inventories/dev/host inventory file.
    
-       `ansible-playbook -i inventories/dev/host setup_docker_host.yml`
+       `ansible-playbook -i inventories/dev/host setup_docker_host.yml -c local`
 
        The result is we will have a Docker host setup on the current host we are running.. We can perform docker commands below:
 
        a. List Docker instances: `sudo docker ps` 
        b. List Docker volumes: `sudo docker volume ls` 
+       c. Create Docker volume: `sudo docker volume create xvol`` 
    
 
    2. Playbook to create a docker container: apt-cache-ng. 
    
       2.1.  You have to run first the setup_docker_volume.yml 
 	
- 	    `ansible-playbook -i inventories/dev/host setup_docker_volume.yml`
+ 	    `ansible-playbook -i inventories/dev/host setup_docker_volume.yml -c local`
 
             The volume stored on the docker_host, thus apt_cacher_volume can be shared with docker instances. 
 
       2.2.  Now you can run the run_apt_cacher_container.yml 
        What it will do next is to create an apt-cacher-ng inside a Docker Host. It means or target host here would be the hostname/IP of docker host above.
 
-       `ansible-playbook -i inventories/dev/host run_apt-cacher_container.yml`
+       `ansible-playbook -i inventories/dev/host run_apt-cacher_container.yml -c local`
 
        This apt-cacher will run on port specified to this, we can check that using the command netstat. 
        `netstat -l | grep 3142` 
@@ -47,7 +50,7 @@ At the end of the demo, we will have a Vagrant instance, with Docker inside and 
 	  
    3. Another playbook that will install apt-cacher client to target client hosts defined on new set of inventory file, to be apt-cacher client.
 
-       `ansible-playbook -i inventories/dev/hosts install_apt_cacher_client.yml`
+       `ansible-playbook -i inventories/dev/hosts install_apt_cacher_client.yml -c local`
 
 		site_url: "apt.example.com:3142"
 

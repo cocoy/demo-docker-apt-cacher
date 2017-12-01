@@ -15,6 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.synced_folder '.', '/vagrant', disabled:true 
   config.vm.hostname = "ansible-#{role}"
+  config.ssh.forward_agent = true
 
   config.vm.provider :virtualbox do |v|
     v.memory = 2048
