@@ -59,6 +59,15 @@ At the end of the demo, we will have a Vagrant instance, with Docker inside and 
       Where: apt.example.com can be IP or dns of your apt-cacher-ng server and port.
       Or we can specify a new inventory file that contains the host we want to target to install the apt-cache client.
 
+      Example is to edit  inventories/dev/apt-cache-hosts add the IP/hostname: 
+
+          ```
+             192.168.10.1 
+	     web1.local 
+
+      Then we can run the apt-cacher client playbook on the inventory. 
+       `ansible-playbook -i inventories/dev/apt-cache-hosts install_apt_cacher_client.yml`
+
 
 ## References:
 
